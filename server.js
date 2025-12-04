@@ -25,6 +25,13 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('Transporter verification failed:', error);
+  } else {
+    console.log('Server is ready to take messages');
+  }
+});
 
 // Limit: max 5 requests per IP per minute
 const contactLimiter = rateLimit({
@@ -72,8 +79,8 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.json({ ok: true, message: 'Message sent successfully.' });
   } catch (err) {
-    console.error('Email send error:', err);
-    res.status(500).json({ error: 'Failed to send message.' });
+  console.error('Email send error:', err.message, err.stack);
+  res.status(500).json({ error: 'Failed to send message.' });;
   }
 });
 
