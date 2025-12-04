@@ -7,12 +7,11 @@ const rateLimit = require("express-rate-limit");
 
 const app = express()
 
-app.use(cors(
-    {
-        origin: ['https://portfolio-ashen-psi.vercel.app/']
-    }
-))
-app.use(express.json())
+app.use(cors({
+  origin: "https://allwebsvs.netlify.app", // your Netlify frontend
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
 
 
 // Configure transporter (Gmail via app password or any SMTP)
