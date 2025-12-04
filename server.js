@@ -42,10 +42,8 @@ const contactLimiter = rateLimit({
 app.get('/health', (req, res) => res.json({ ok: true, message: "all good" }));
 
 // Contact route
-app.post('/api/contact',contactLimiter, async (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
-
-  
 
   // Server-side validation
   if (!name || !email || !message) {
