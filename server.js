@@ -13,6 +13,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type"]
 }));
 
+app.use(express.json()); 
 
 // Configure transporter (Gmail via app password or any SMTP)
 const transporter = nodemailer.createTransport({
@@ -34,15 +35,15 @@ transporter.verify((error, success) => {
 });
 
 // Limit: max 5 requests per IP per minute
-const contactLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 5,              // limit each IP to 5 requests per windowMs
-  message: {
-    error: "Too many requests. Please wait a minute before trying again."
-  },
-  standardHeaders: true, // Return rate limit info in headers
-  legacyHeaders: false,  // Disable the X-RateLimit headers
-});
+// const contactLimiter = rateLimit({
+//   windowMs: 60 * 1000, // 1 minute
+//   max: 5,              // limit each IP to 5 requests per windowMs
+//   message: {
+//     error: "Too many requests. Please wait a minute before trying again."
+//   },
+//   standardHeaders: true, // Return rate limit info in headers
+//   legacyHeaders: false,  // Disable the X-RateLimit headers
+// });
 
 
 // Basic health check
